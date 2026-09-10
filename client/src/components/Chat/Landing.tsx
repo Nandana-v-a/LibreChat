@@ -14,9 +14,9 @@ import {
 } from '~/utils';
 import { useChatContext, useAgentsMapContext, useAssistantsMapContext } from '~/Providers';
 import { useGetEndpointsQuery, useGetStartupConfig } from '~/data-provider';
-import { useLocalize, useAuthContext, useGreeting } from '~/hooks';
 import AgentContact from '~/components/Agents/AgentContact';
 import ConvoIcon from '~/components/Endpoints/ConvoIcon';
+import { useLocalize, useAuthContext } from '~/hooks';
 import temporaryStore from '~/store/temporary';
 
 const containerClassName =
@@ -102,12 +102,12 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
   const selectedAgent =
     isAgent && conversation?.agent_id != null ? agentsMap?.[conversation.agent_id] : undefined;
 
-  const customWelcome =
-    typeof startupConfig?.interface?.customWelcome === 'string'
-      ? startupConfig.interface.customWelcome
-      : undefined;
+  // const customWelcome =
+  //   typeof startupConfig?.interface?.customWelcome === 'string'
+  //     ? startupConfig.interface.customWelcome
+  //     : undefined;
 
-  const scheduledGreeting = useGreeting(user?.name);
+  // const scheduledGreeting = useGreeting(user?.name);
 
   const handleLineCountChange = useCallback((count: number) => {
     setTextHasMultipleLines(count > 1);
@@ -140,14 +140,7 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
     return margin;
   }, [lineCount, description, textHasMultipleLines, contentHeight]);
 
-  const resolvedWelcome =
-    customWelcome != null && user?.name
-      ? customWelcome.replace(/{{user.name}}/g, user.name)
-      : customWelcome;
-
-  const greetingText = isTemporary
-    ? localize('com_ui_temporary')
-    : (resolvedWelcome ?? scheduledGreeting);
+  const greetingText = isTemporarycustom ? localize('com_ui_temporary') : 'How can I help?';
 
   return (
     <div

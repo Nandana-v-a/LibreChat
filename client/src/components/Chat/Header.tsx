@@ -82,16 +82,17 @@ function Header({
         {parentConversationId != null && (
           <SubagentThreadLink threadId={parentConversationId} labelClassName="hidden lg:inline" />
         )}
-        {!readOnly && <ModelSelector startupConfig={startupConfig} />}
-        {!readOnly && interfaceConfig.presets === true && interfaceConfig.modelSelect === true && (
-          <PresetsMenu />
-        )}
-        {hasAccessToBookmarks === true && (
+        {false && !readOnly && <ModelSelector startupConfig={startupConfig} />}
+        {false &&
+          !readOnly &&
+          interfaceConfig.presets === true &&
+          interfaceConfig.modelSelect === true && <PresetsMenu />}
+        {false && hasAccessToBookmarks === true && (
           <div className="hidden items-center md:flex">
             <BookmarkMenu />
           </div>
         )}
-        {hasAccessToMultiConvo === true && (
+        {false && hasAccessToMultiConvo === true && (
           <div className="hidden items-center md:flex">
             <AddMultiConvo />
           </div>
@@ -99,13 +100,17 @@ function Header({
       </div>
 
       <div className={cn('flex flex-shrink-0 items-center gap-2', hiddenBehindNav)}>
-        {hasAccessToTemporaryChat === true && <TemporaryChatIndicator />}
+        {false && hasAccessToTemporaryChat === true && <TemporaryChatIndicator />}
         {!isNewChat && <NewChat className="md:hidden" />}
         <HeaderMenu startupConfig={startupConfig} className="md:hidden" />
-        <div className="hidden items-center gap-2 md:flex">
-          <ExportAndShareMenu isSharedButtonEnabled={startupConfig?.sharedLinksEnabled ?? false} />
-          {hasAccessToTemporaryChat === true && <TemporaryChat />}
-        </div>
+        {false && (
+          <div className="hidden items-center gap-2 md:flex">
+            <ExportAndShareMenu
+              isSharedButtonEnabled={startupConfig?.sharedLinksEnabled ?? false}
+            />
+            {hasAccessToTemporaryChat === true && <TemporaryChat />}
+          </div>
+        )}
       </div>
     </div>
   );
